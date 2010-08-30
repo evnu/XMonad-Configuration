@@ -5,4 +5,10 @@ import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Tabbed
 
-layoutRules = avoidStruts $ Tall 1 (3/100) (1/2) ||| simpleTabbed
+-- Make a given layout display without borders -> smartBorders: only show border if really
+-- needed
+import XMonad.Layout.NoBorders
+
+-- remember:
+  -- spiral: spiral tiling layout
+layoutRules = avoidStruts $ Tall 1 (3/100) (1/2) ||| simpleTabbed  ||| smartBorders Full
