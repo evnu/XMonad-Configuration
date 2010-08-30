@@ -2,6 +2,15 @@ import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 
+-- find an empty workspace :)
+import XMonad.Actions.FindEmptyWorkspace
+
+-- Keybindings 'n stuff
+import XMonad.Util.EZConfig
+
+-- fullscreen?
+import XMonad.Hooks.ManageHelpers
+
 -- my configuration modules
 import ApplicationRules
 import LayoutRules
@@ -19,23 +28,24 @@ myConfig = defaultConfig {
          -- set colors
          , normalBorderColor = "#666666"
          , focusedBorderColor = "#00FF40"
-         }
+         } `additionalKeys` myKeyBindings
 
 {- 
   - manage Hooks
 -}
-myHooks = [manageHook defaultConfig, manageDocks, manageWorkspaces]
+myHooks = [
+      manageHook defaultConfig
+    , manageDocks, manageWorkspaces
+    , composeOne [ isFullscreen -?> doFullFloat ] -- manage fullscreeen windows
+  ]
 
-
-{- 
-  - autostart applications -
+{-
+  - key bindings
 -}
+myKeyBindings = [
+  ((windowsKey, xK_e), viewEmptyWorkspace)  -- jump to empty workspace
+  ]
 
--- startup :: X ()
--- startup = do
---  spawn "xterm"
---  ...
---then: add startupHook = startup to config
 
 -- put some applications on specific workspaces
 manageWorkspaces = composeAll .  concat $ rules
