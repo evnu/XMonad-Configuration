@@ -37,14 +37,8 @@ myConfig output = defaultConfig {
          -- set colors
          , normalBorderColor = "#666666"
          , focusedBorderColor = "#00FF40"
-         , logHook = dynamicLogWithPP $ sjanssenPP { 
-              ppOutput = hPutStrLn output 
-            , ppSep    = " - "
-            , ppHidden = noScratchPad
-           }
+         , logHook = dynamicLogWithPP $ myPP output
          } `additionalKeys` myKeyBindings
-  where
-    noScratchPad ws = if ws == "NSP" then "" else ws
 
 myTerminal = "urxvt"
 
@@ -94,5 +88,21 @@ myWorkSpaces :: [WorkspaceId]
 myWorkSpaces = ["1:IM", "2:Browser", "3:Mail", "4:IRC", "5:Dev"] ++ map show [6..9]
 
 {-
-  - log hook
+  - xmobar style
 -}
+myPP output = defaultPP { 
+    ppCurrent = xmobarColor "blue" "" . wrap "[" "]"
+  , ppVisible = wrap "(" ")"
+  , ppHidden = noScratchPad
+  , ppHiddenNoWindows = const ""
+  , ppSep    = " -> " 
+  , ppTitle  = xmobarColor "blue" "" . shorten 20
+  , ppUrgent = xmobarColor "red" "yellow"
+  , ppWsSep  = " : "
+  , ppLayout = const ""
+  -- receives three formatted strings: workspace, layout, current window title
+  , ppOrder  = \(ws:_:t:_) -> [ws,t] -- ignore layout
+  , ppOutput = hPutStrLn output 
+ }
+  where
+    noScratchPad ws = if ws == "NSP" then "" else ws
