@@ -85,7 +85,7 @@ windowsKey = mod4Mask
 
 -- define workspaces
 myWorkSpaces :: [WorkspaceId]
-myWorkSpaces = ["1:IM", "2:Browser", "3:Mail", "4:IRC", "5:Dev"] ++ map show [6..9]
+myWorkSpaces = ["1:im", "2:www", "3:mail", "4:IRC", "5:dev"] ++ map show [6..9]
 
 {-
   - xmobar style
@@ -96,7 +96,7 @@ myPP output = defaultPP {
   , ppHidden = noScratchPad
   , ppHiddenNoWindows = const ""
   , ppSep    = " -> " 
-  , ppTitle  = xmobarColor "blue" "" . shorten 20
+  , ppTitle  = xmobarColor "blue" "" . shorten 30
   , ppUrgent = xmobarColor "red" "yellow"
   , ppWsSep  = " : "
   , ppLayout = const ""
