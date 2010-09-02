@@ -9,6 +9,4 @@ import XMonad.Layout.Tabbed
 -- needed
 import XMonad.Layout.NoBorders
 
--- remember:
-  -- spiral: spiral tiling layout
 layoutRules = avoidStruts $ Tall 1 (3/100) (1/2) ||| simpleTabbed  ||| smartBorders Full
