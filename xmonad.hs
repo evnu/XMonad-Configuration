@@ -1,3 +1,7 @@
+-- Haskell modules
+import Data.List
+
+-- XMonad modules
 import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
@@ -16,11 +20,13 @@ import XMonad.Util.Scratchpad
 import XMonad.Util.NamedScratchpad
 import qualified XMonad.StackSet as W
 
+import XMonad.Util.Run -- spawnPipe and hPutStrLn
+
 -- my configuration modules
 import ApplicationRules
 import LayoutRules
+import Workspaces
 
-import XMonad.Util.Run -- spawnPipe and hPutStrLn
 
 main = do
  -- xmonad =<< xmobar myConfig 
@@ -54,7 +60,9 @@ myHooks = composeAll [
     , namedScratchpadManageHook scratchPads
   ]
 
-scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer ]-- mixer scratchpad
+scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
+              , NS "mocp"  spawnMocp  findMocp  manageMocp  -- music on console
+              ]
               where
                 spawnMixer  = "aumix"
                 findMixer   = resource =? "aumix"
@@ -64,17 +72,21 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer ]-- mixer scratchpad
                     w = 0.6
                     t = (1 - h)/2
                     l = (1 - w)/2
+                spawnMocp   = myTerminal ++ " -e mocp"
+                findMocp    = fmap ("MOC" `isPrefixOf`) title
+                manageMocp  = defaultFloating
 
 {-
   - key bindings
 -}
 myKeyBindings = [
     ((windowsKey, xK_e), viewEmptyWorkspace)  -- jump to empty workspace
-  , ((windowsKey, xK_s), scratchpadSpawnActionTerminal myTerminal)
   , ((windowsKey, xK_a), scratchAlsamixer)
+  , ((windowsKey, xK_F11), scratchMocp)
   ]
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
+    scratchMocp      = namedScratchpadAction scratchPads "mocp"
 
 
 -- put some applications on specific workspaces
@@ -82,10 +94,6 @@ manageWorkspaces = composeAll .  concat $ rules
 
 -- some aliases
 windowsKey = mod4Mask
-
--- define workspaces
-myWorkSpaces :: [WorkspaceId]
-myWorkSpaces = ["1:im", "2:www", "3:mail", "4:IRC", "5:dev"] ++ map show [6..9]
 
 {-
   - xmobar style
