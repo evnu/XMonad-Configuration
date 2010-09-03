@@ -1,6 +1,11 @@
 module ApplicationRules
 where
 
+-- Haskell modules
+import Data.List
+
+-- XMonad modules
+
 import XMonad
 
 -- My modules
@@ -14,6 +19,7 @@ rules = [
      , [ className =? a --> doShift "3:mail"| a <- mailApplications ]
      , [ className =? a --> doShift "4:IRC" | a <- ircApplications ]
      , [ className =? a --> doShift "4:dev" | a <- devApplications ]
+     , [ fmap ("MOC" `isPrefixOf`) title --> doFloat ] -- doesn't work... :(
      , [ className =? a --> doFloat | a <- generalRules]
   ]
 

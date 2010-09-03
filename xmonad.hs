@@ -83,6 +83,7 @@ myKeyBindings = [
     ((windowsKey, xK_e), viewEmptyWorkspace)  -- jump to empty workspace
   , ((windowsKey, xK_a), scratchAlsamixer)
   , ((windowsKey, xK_F11), scratchMocp)
+  , ((windowsKey, xK_Print), spawn "scrot")
   ]
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
