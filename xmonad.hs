@@ -22,16 +22,21 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Util.Run -- spawnPipe and hPutStrLn
 
+-- urgent notifications
+import XMonad.Hooks.UrgencyHook
+
 -- my configuration modules
 import ApplicationRules
 import LayoutRules
 import Workspaces
 
+stdOutUrgencyHook :: StdoutUrgencyHook
+stdOutUrgencyHook = StdoutUrgencyHook
 
 main = do
  -- xmonad =<< xmobar myConfig 
   output <- spawnPipe "xmobar"
-  xmonad $ myConfig output
+  xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
 myConfig output = defaultConfig { 
            terminal    = myTerminal
