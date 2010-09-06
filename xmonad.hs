@@ -84,6 +84,7 @@ myKeyBindings = [
   , ((windowsKey, xK_a), scratchAlsamixer)
   , ((windowsKey, xK_F11), scratchMocp)
   , ((windowsKey, xK_Print), spawn "scrot")
+  , ((windowsKey, xK_b), spawn "showbatt")
   ]
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
