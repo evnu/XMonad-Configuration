@@ -8,5 +8,6 @@ The files in this repository are my configuration files for XMonad.
 * XMonad (>= 0.9.1)
 * XMonad Contrib (>= 0.9.1)
 * aumix-gtk (>= 2.9.1-1?)
+* osdbattery (>= 1.4-3)
 
 
