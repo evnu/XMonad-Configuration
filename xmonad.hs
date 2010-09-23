@@ -36,6 +36,7 @@ stdOutUrgencyHook = StdoutUrgencyHook
 main = do
  -- xmonad =<< xmobar myConfig 
   output <- spawnPipe "xmobar"
+  --mocpBar <- spawnPipe "xmobar '%StdinReader%' -t -o "
   xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
 myConfig output = defaultConfig { 
