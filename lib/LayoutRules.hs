@@ -21,7 +21,10 @@ import XMonad.Layout.TwoPane
 import Data.Ratio ((%))
 
 -- special layouts
-layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ onWorkspace "3:mail" mailLayout $ standardLayouts
+layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ 
+	onWorkspace "3:mail" mailLayout $ 
+	onWorkspace "5:dev" devLayout $
+	standardLayouts
     where
         standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| simpleTabbed  ||| smartBorders Full
 
@@ -40,7 +43,7 @@ layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ on
         webLayout      = avoidStruts $ (full ||| tabLayout ||| Tall 1(3/100) (1/2))
 
         --terminal layout
-        termLayout = avoidStruts $ (Grid ||| full)
+        devLayout = avoidStruts $ (Grid ||| full)
 
         --mail layout
         mailLayout = avoidStruts $ (full ||| tabLayout)
