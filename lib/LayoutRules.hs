@@ -40,7 +40,7 @@ layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $
                 pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
         --Web Layout
-        webLayout      = avoidStruts $ (full ||| tabLayout ||| Tall 1(3/100) (1/2))
+        webLayout      = avoidStruts $ (full ||| tabLayout ||| Tall 1(3/100) (1/2)) ||| tiled
 
         --terminal layout
         devLayout = avoidStruts $ (Grid ||| full)
