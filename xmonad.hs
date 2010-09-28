@@ -107,13 +107,13 @@ windowsKey = mod4Mask
   - xmobar style
 -}
 myPP output = defaultPP { 
-    ppCurrent = xmobarColor "blue" "" . wrap "[" "]"
+    ppCurrent = xmobarColor "#48457A" "#0F141F" . wrap "[" "]"
   , ppVisible = wrap "(" ")"
   , ppHidden = noScratchPad
   , ppHiddenNoWindows = const ""
   , ppSep    = " -> " 
-  , ppTitle  = xmobarColor "blue" "" . shorten 30
-  , ppUrgent = xmobarColor "red" "yellow"
+  , ppTitle  = xmobarColor "#5B5991" "" . shorten 30
+  , ppUrgent = xmobarColor "#2BA624" "0FA3A3"
   , ppWsSep  = " : "
   , ppLayout = const ""
   -- receives three formatted strings: workspace, layout, current window title
