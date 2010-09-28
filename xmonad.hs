@@ -34,10 +34,12 @@ stdOutUrgencyHook :: StdoutUrgencyHook
 stdOutUrgencyHook = StdoutUrgencyHook
 
 main = do
- -- xmonad =<< xmobar myConfig 
-  output <- spawnPipe "xmobar"
-  --mocpBar <- spawnPipe "xmobar '%StdinReader%' -t -o "
-  xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
+	-- momma needs a bar.
+	output <- spawnPipe "xmobar"
+	-- trayer
+	none  <- spawn "trayer.sh"
+	--mocpBar <- spawnPipe "xmobar '%StdinReader%' -t -o "
+	xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
 myConfig output = defaultConfig { 
            terminal    = myTerminal
