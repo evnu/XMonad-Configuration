@@ -41,18 +41,6 @@ main = do
 	--mocpBar <- spawnPipe "xmobar '%StdinReader%' -t -o "
 	xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
-myConfig output = defaultConfig { 
-           terminal    = myTerminal
-         , modMask     = windowsKey
-         , borderWidth = 2 
-         , manageHook  = myHooks
-         , layoutHook  = LayoutRules.layoutRules 
-         , workspaces  = myWorkSpaces
-         -- set colors
-         , normalBorderColor = "#666666"
-         , focusedBorderColor = "#00FF40"
-         , logHook = dynamicLogWithPP $ myPP output
-         } `additionalKeys` myKeyBindings
 
 myTerminal = "urxvt"
 
@@ -106,6 +94,21 @@ manageWorkspaces = composeAll .  concat $ rules
 -- some aliases
 windowsKey = mod4Mask
 
+{-
+	xmonad style
+-}
+myConfig output = defaultConfig { 
+           terminal    = myTerminal
+         , modMask     = windowsKey
+         , borderWidth = 2 
+         , manageHook  = myHooks
+         , layoutHook  = LayoutRules.layoutRules 
+         , workspaces  = myWorkSpaces
+         -- set colors
+         , normalBorderColor = "#202020"
+         , focusedBorderColor = "#5B5991"
+         , logHook = dynamicLogWithPP $ myPP output
+         } `additionalKeys` myKeyBindings
 {-
   - xmobar style
 -}
