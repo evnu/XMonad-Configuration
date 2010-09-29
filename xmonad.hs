@@ -93,6 +93,7 @@ myKeyBindings = [
   , ((windowsKey, xK_F11), scratchMocp)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b), spawn "showbatt")
+	, ((windowsKey, xK_p), spawn "/home/evnu/bin/dmenu_run")
   ]
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
