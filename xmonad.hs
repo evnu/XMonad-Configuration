@@ -113,12 +113,12 @@ myConfig output = defaultConfig {
   - xmobar style
 -}
 myPP output = defaultPP { 
-    ppCurrent = xmobarColor "#48457A" "#0F141F" . wrap "[" "]"
+    ppCurrent = xmobarColor "#7B79B1" "#0F141F" . wrap "[" "]"
   , ppVisible = wrap "(" ")"
   , ppHidden = noScratchPad
   , ppHiddenNoWindows = const ""
   , ppSep    = " -> " 
-  , ppTitle  = xmobarColor "#5B5991" "" . shorten 30
+  , ppTitle  = xmobarColor "#7B79B1" "" . shorten 30
   , ppUrgent = xmobarColor "#2BA624" "0FA3A3"
   , ppWsSep  = " : "
   , ppLayout = const ""
