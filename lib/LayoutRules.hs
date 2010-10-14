@@ -16,6 +16,7 @@ import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Grid
 import XMonad.Layout.Combo
 import XMonad.Layout.TwoPane
+import XMonad.Layout.Circle
 
 -- Data.Ratio for IM layout
 import Data.Ratio ((%))
@@ -26,7 +27,7 @@ layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $
 	onWorkspace "5:dev" devLayout $
 	standardLayouts
     where
-        standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| simpleTabbed  ||| smartBorders Full
+        standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| smartBorders Full 
 
         --Layouts
         tiled        = smartBorders (ResizableTall 1 (2/100) (1/2) [])
@@ -46,7 +47,7 @@ layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $
         devLayout = avoidStruts $ (Grid ||| full)
 
         --mail layout
-        mailLayout = avoidStruts $ (full ||| tabLayout)
+        mailLayout = avoidStruts $ Circle
 
 -- themeing for tab layout
 myTheme = defaultTheme { decoHeight = 16
