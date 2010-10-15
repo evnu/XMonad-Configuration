@@ -47,7 +47,7 @@ layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $
         devLayout = avoidStruts $ (Grid ||| full)
 
         --mail layout
-        mailLayout = avoidStruts $ Circle
+        mailLayout = standardLayouts
 
 -- themeing for tab layout
 myTheme = defaultTheme { decoHeight = 16
