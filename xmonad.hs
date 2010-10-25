@@ -37,7 +37,7 @@ main = do
 	-- momma needs a bar.
 	output <- spawnPipe "xmobar"
 	-- trayer
-	none  <- spawn "trayer.sh"
+	--none  <- spawn "trayer.sh"
 	--mocpBar <- spawnPipe "xmobar '%StdinReader%' -t -o "
 	xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
@@ -118,7 +118,7 @@ myPP output = defaultPP {
   , ppHidden = noScratchPad
   , ppHiddenNoWindows = const ""
   , ppSep    = " -> " 
-  , ppTitle  = xmobarColor "#7B79B1" "" . shorten 30
+  , ppTitle  = xmobarColor "#7B79B1" "" . shorten 100 
   , ppUrgent = xmobarColor "#2BA624" "0FA3A3"
   , ppWsSep  = " : "
   , ppLayout = const ""
