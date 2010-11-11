@@ -1,4 +1,4 @@
-# my simple xmobar config. put into ~/.xmobarrc
+-- my simple xmobar config. put into ~/.xmobarrc
 Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "grey"
