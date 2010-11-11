@@ -81,7 +81,7 @@ myKeyBindings = [
   , ((windowsKey, xK_F11), scratchMocp)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b), spawn "showbatt")
-	, ((windowsKey, xK_p), spawn "/home/evnu/bin/dmenu_run")
+	, ((windowsKey, xK_p), spawn "~/bin/dmenu_run")
   ]
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
@@ -118,7 +118,7 @@ myPP output = defaultPP {
   , ppHidden = noScratchPad
   , ppHiddenNoWindows = const ""
   , ppSep    = " -> " 
-  , ppTitle  = xmobarColor "#7B79B1" "" . shorten 80 
+  , ppTitle  = xmobarColor "#7B79B1" "" . shorten 60 
   , ppUrgent = xmobarColor "#2BA624" "0FA3A3"
   , ppWsSep  = " : "
   , ppLayout = const ""
