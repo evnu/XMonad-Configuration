@@ -18,11 +18,15 @@ import XMonad.Layout.Combo
 import XMonad.Layout.TwoPane
 import XMonad.Layout.Circle
 
+-- show workspace name on switch
+import XMonad.Layout.ShowWName
+
+
 -- Data.Ratio for IM layout
 import Data.Ratio ((%))
 
 -- special layouts
-layoutRules = onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ 
+layoutRules = showWName $ onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ 
 	onWorkspace "3:mail" mailLayout $ 
 	onWorkspace "5:dev" devLayout $
 	standardLayouts
