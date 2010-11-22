@@ -12,7 +12,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.Reflect
 import XMonad.Layout.IM
 import XMonad.Layout.Tabbed
-import XMonad.Layout.PerWorkspace (onWorkspace)
+import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Grid
 import XMonad.Layout.Combo
 import XMonad.Layout.TwoPane
@@ -26,12 +26,13 @@ import XMonad.Layout.ShowWName
 import Data.Ratio ((%))
 
 -- special layouts
-layoutRules = showWName $ onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ 
+layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ 
 	onWorkspace "3:mail" mailLayout $ 
 	onWorkspace "5:dev" devLayout $
+	onWorkspace "9:gimp" gimp $
 	standardLayouts
     where
-        standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| smartBorders Full 
+        standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| smartBorders Full  ||| Mirror tiled
 
         --Layouts
         tiled        = smartBorders (ResizableTall 1 (2/100) (1/2) [])
@@ -47,11 +48,20 @@ layoutRules = showWName $ onWorkspace "1:im" chatLayout $ onWorkspace "2:www" we
         --Web Layout
         webLayout      = avoidStruts $ (full ||| tabLayout ||| Tall 1(3/100) (1/2)) ||| tiled
 
-        --terminal layout
-        devLayout = avoidStruts $ (Grid ||| full)
+        --terminal/dev layout
+        devLayout = avoidStruts $ (Grid ||| full) ||| Mirror tiled
 
         --mail layout
         mailLayout = standardLayouts
+
+        -- TODO doesn't work. fuck gimp.
+        gimp = withIM (toolboxRatio) (toolboxRole) $ (reflectHoriz $ withIM (dockRatio) (dockRole) $ Grid ||| tabLayout)
+					where
+						toolboxRatio = 1%10
+						toolboxRole = Role "gimp-toolbox"
+						dockRatio  = 15%100
+						dockRole = Role "gimp-dock"
+				
 
 -- themeing for tab layout
 myTheme = defaultTheme { decoHeight = 16
@@ -60,3 +70,11 @@ myTheme = defaultTheme { decoHeight = 16
                         , activeTextColor = "#000000"
                         , inactiveBorderColor = "#000000"
                         }
+
+swnConfig :: SWNConfig
+swnConfig = SWNC {
+									swn_font    = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+								, swn_bgcolor = "black"
+								, swn_color   = "white"
+								, swn_fade    = 1
+}

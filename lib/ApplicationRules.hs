@@ -20,6 +20,7 @@ rules = [
      , [ className =? a --> doShift "4:IRC" | a <- ircApplications ]
      , [ className =? a --> doShift "5:dev" | a <- devApplications ]
 		 , [ className =? a --> doShift "6:ddd" | a <- debuggerApplications ]
+		 , [ className =? "Gimp" --> doShift "9:gimp"]
      , [ fmap ("MOC" `isPrefixOf`) title --> doFloat ] -- doesn't work... :(
      , [ className =? a --> doFloat | a <- generalRules]
   ]
