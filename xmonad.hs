@@ -64,13 +64,18 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
                 findMixer   = resource =? "aumix"
                 manageMixer = customFloating $ W.RationalRect l t w h
                   where
-                    h = 0.3
+                    h = 0.4
                     w = 0.6
                     t = (1 - h)/2
                     l = (1 - w)/2
-                spawnMocp   = myTerminal ++ " -e mocp"
+                spawnMocp   = myTerminal ++ " -title MOC -e mocp"
                 findMocp    = fmap ("MOC" `isPrefixOf`) title
-                manageMocp  = defaultFloating
+                manageMocp  = customFloating $ W.RationalRect l t w h
+									where
+										h = 0.5
+										w = 1
+										t = (1 - h)/2
+										l = (1 - w)/2
 
 {-
   - key bindings
@@ -106,7 +111,7 @@ myConfig output = defaultConfig {
          , workspaces  = myWorkSpaces
          -- set colors
          , normalBorderColor = "#202020"
-         , focusedBorderColor = "#5B5991"
+         , focusedBorderColor = "#FF0000"
          , logHook = dynamicLogWithPP $ myPP output
          } `additionalKeys` myKeyBindings
 {-

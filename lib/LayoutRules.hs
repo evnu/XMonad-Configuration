@@ -29,6 +29,7 @@ import Data.Ratio ((%))
 layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ 
 	onWorkspace "3:mail" mailLayout $ 
 	onWorkspace "5:dev" devLayout $
+  onWorkspace "6:ddd" devLayout $
 	onWorkspace "9:gimp" gimp $
 	standardLayouts
     where
