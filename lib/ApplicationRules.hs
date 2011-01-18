@@ -30,7 +30,7 @@ rules = [
 
 -- use list comprehension to make the configuration more readable
 instantMessageApplications = ["Pidgin"]
-webApplications = ["Firefox", "Liferea", "Namoroka"]
+webApplications = ["Firefox", "Liferea", "Namoroka", "Vimprobable"]
 mailApplications = ["Sylpheed", "sylpheed"]
 ircApplications = ["Xchat", "xchat"]
 devApplications = []
