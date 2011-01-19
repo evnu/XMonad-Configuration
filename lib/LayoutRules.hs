@@ -26,7 +26,8 @@ import XMonad.Layout.ShowWName
 import Data.Ratio ((%))
 
 -- special layouts
-layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ onWorkspace "2:www" webLayout $ 
+layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ 
+  onWorkspace "2:www" webLayout $ 
 	onWorkspace "3:mail" mailLayout $ 
 	onWorkspace "5:dev" devLayout $
   onWorkspace "6:ddd" devLayout $
@@ -47,7 +48,7 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ onWorkspac
                 pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
         --Web Layout
-        webLayout      = avoidStruts $ (full ||| tabLayout ||| Tall 1(3/100) (1/2)) ||| tiled
+        webLayout      = avoidStruts $ (tabLayout ||| Tall 1(3/100) (1/2)) ||| tiled
 
         --terminal/dev layout
         devLayout = avoidStruts $ (Grid ||| full) ||| Mirror tiled
