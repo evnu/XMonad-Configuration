@@ -31,6 +31,7 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
 	onWorkspace "3:mail" mailLayout $ 
 	onWorkspace "5:dev" devLayout $
   onWorkspace "6:ddd" devLayout $
+  onWorkspace "7:write" writingLayout $
 	onWorkspace "9:gimp" gimp $
 	standardLayouts
     where
@@ -55,7 +56,9 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
 
         --mail layout
         mailLayout = standardLayouts
-
+        
+        -- write with big master
+        writingLayout = avoidStruts $ Mirror tiled
         -- TODO doesn't work. fuck gimp.
         gimp = withIM (toolboxRatio) (toolboxRole) $ (reflectHoriz $ withIM (dockRatio) (dockRole) $ Grid ||| tabLayout)
 					where
