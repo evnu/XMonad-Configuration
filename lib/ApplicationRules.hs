@@ -21,9 +21,7 @@ rules = [
      , [ className =? a --> doShift "5:dev" | a <- devApplications ]
 		 , [ className =? a --> doShift "6:ddd" | a <- debuggerApplications ]
 		 , [ className =? "Gimp" --> doShift "9:gimp"]
-     , [ className =? "sun-awt-X11-XFramePeer" --> doFloat ]
-     , [ className =? "animator-CorbaServer" --> doFloat ]
-     , [ fmap ("MOC" `isPrefixOf`) title --> doFloat ] -- doesn't work... :(
+		 , [ className =? a --> doFloat | a <- animatorApplications ]
      , [ className =? a --> doFloat | a <- generalRules]
   ]
 
@@ -36,4 +34,4 @@ ircApplications = ["Xchat", "xchat"]
 devApplications = []
 debuggerApplications = ["Ddd"]
 generalRules = ["Xmessage"]
-
+animatorApplications = ["animator-CorbaServer", "sun-awt-X11-XFramePeer", "animator-NoCorbaClient"]
