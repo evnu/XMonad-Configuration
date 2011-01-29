@@ -9,7 +9,7 @@ import XMonad.Hooks.DynamicLog
 -- find an empty workspace :)
 import XMonad.Actions.FindEmptyWorkspace
 
--- Keybindings 'n stuff
+-- Keybindings , greedyview 'n stuff
 import XMonad.Util.EZConfig
 
 -- fullscreen?
@@ -87,6 +87,12 @@ myKeyBindings = [
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b), spawn "showbatt")
 	, ((windowsKey, xK_p), spawn "~/bin/dmenu_run")
+  ]
+  ++
+  [
+  -- build view instead of greedyview - if we want a view on a screen, we'll stick with it
+  -- and don't allow another screen to access it.
+    ((m .|. mod4Mask, k), windows $ f i) | (i,k) <- zip myWorkSpaces [xK_1 .. xK_9], (f,m) <- [(W.view,0),(W.shift, shiftMask)]
   ]
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
