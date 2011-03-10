@@ -58,6 +58,7 @@ myHooks = composeAll [
 
 scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
               , NS "mocp"  spawnMocp  findMocp  manageMocp  -- music on console
+              , NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
               ]
               where
                 spawnMixer  = "aumix"
@@ -73,7 +74,15 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
                 manageMocp  = customFloating $ W.RationalRect l t w h
 									where
 										h = 0.5
-										w = 1
+										w = 0.8
+										t = (1 - h)/2
+										l = (1 - w)/2
+                spawnDing   = "ding"
+                findDing    = className =? "Ding"
+                manageDing  = customFloating $ W.RationalRect l t w h
+									where
+										h = 0.5
+										w = 0.5 
 										t = (1 - h)/2
 										l = (1 - w)/2
 
@@ -84,6 +93,7 @@ myKeyBindings = [
     ((windowsKey, xK_e), viewEmptyWorkspace)  -- jump to empty workspace
   , ((windowsKey, xK_a), scratchAlsamixer)
   , ((windowsKey, xK_F11), scratchMocp)
+  , ((windowsKey, xK_d), scratchDing)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b), spawn "showbatt")
 	, ((windowsKey, xK_p), spawn "~/bin/dmenu_run")
@@ -97,6 +107,7 @@ myKeyBindings = [
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
     scratchMocp      = namedScratchpadAction scratchPads "mocp"
+    scratchDing      = namedScratchpadAction scratchPads "ding"
 
 
 -- put some applications on specific workspaces
