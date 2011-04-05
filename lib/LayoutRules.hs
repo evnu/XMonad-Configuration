@@ -17,6 +17,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.Combo
 import XMonad.Layout.TwoPane
 import XMonad.Layout.Circle
+import XMonad.Layout.ThreeColumns
 
 -- show workspace name on switch
 import XMonad.Layout.ShowWName
@@ -49,7 +50,7 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
                 pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
         --Web Layout
-        webLayout      = avoidStruts $ (tabLayout ||| Tall 1(3/100) (1/2)) ||| tiled
+        webLayout      = avoidStruts $ (tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
 
         --terminal/dev layout
         devLayout = avoidStruts $ (Grid ||| full) ||| Mirror tiled
