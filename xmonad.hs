@@ -29,6 +29,7 @@ import XMonad.Hooks.UrgencyHook
 import ApplicationRules
 import LayoutRules
 import Workspaces
+import SolarizedColors
 
 stdOutUrgencyHook :: StdoutUrgencyHook
 stdOutUrgencyHook = StdoutUrgencyHook
@@ -59,6 +60,7 @@ myHooks = composeAll [
 scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
               , NS "mocp"  spawnMocp  findMocp  manageMocp  -- music on console
               , NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
+              , NS "htop"  spawnhtop  findhtop  managehtop  -- htop
               ]
               where
                 spawnMixer  = "aumix"
@@ -85,18 +87,27 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
 										w = 0.5 
 										t = (1 - h)/2
 										l = (1 - w)/2
+                spawnhtop   = myTerminal ++ " -title htop -e htop"
+                findhtop    = fmap ("htop" `isPrefixOf`) title
+                managehtop  = customFloating $ W.RationalRect l t w h
+									where
+										h = 0.7
+										w = 0.8
+										t = (1 - h)/2
+										l = (1 - w)/2
 
 {-
   - key bindings
 -}
 myKeyBindings = [
-    ((windowsKey, xK_e), viewEmptyWorkspace)  -- jump to empty workspace
-  , ((windowsKey, xK_a), scratchAlsamixer)
-  , ((windowsKey, xK_F11), scratchMocp)
-  , ((windowsKey, xK_d), scratchDing)
+    ((windowsKey, xK_e),     viewEmptyWorkspace)  -- jump to empty workspace
+  , ((windowsKey, xK_a),     scratchAlsamixer)
+  , ((windowsKey, xK_F11),   scratchMocp)
+  , ((windowsKey, xK_d),     scratchDing)
+  , ((windowsKey, xK_g),     scratchHtop)
   , ((windowsKey, xK_Print), spawn "scrot")
-  , ((windowsKey, xK_b), spawn "showbatt")
-	, ((windowsKey, xK_p), spawn "~/bin/dmenu_run")
+  , ((windowsKey, xK_b),     spawn "showbatt")
+	, ((windowsKey, xK_p),     spawn "~/bin/dmenu_run")
   ]
   ++
   [
@@ -108,6 +119,7 @@ myKeyBindings = [
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
     scratchMocp      = namedScratchpadAction scratchPads "mocp"
     scratchDing      = namedScratchpadAction scratchPads "ding"
+    scratchHtop      = namedScratchpadAction scratchPads "htop"
 
 
 -- put some applications on specific workspaces
@@ -127,21 +139,21 @@ myConfig output = defaultConfig {
          , layoutHook  = LayoutRules.layoutRules 
          , workspaces  = myWorkSpaces
          -- set colors
-         , normalBorderColor = "#202020"
-         , focusedBorderColor = "#FF0000"
+         , normalBorderColor = base02
+         , focusedBorderColor = cyan
          , logHook = dynamicLogWithPP $ myPP output
          } `additionalKeys` myKeyBindings
 {-
   - xmobar style
 -}
 myPP output = defaultPP { 
-    ppCurrent = xmobarColor "#7B79B1" "#0F141F" . wrap "[" "]"
+    ppCurrent = xmobarColor base02 base00 . wrap "[" "]"
   , ppVisible = wrap "(" ")"
   , ppHidden = noScratchPad
   , ppHiddenNoWindows = const ""
   , ppSep    = " -> " 
-  , ppTitle  = xmobarColor "#7B79B1" "" . shorten 60 
-  , ppUrgent = xmobarColor "#2BA624" "0FA3A3"
+  , ppTitle  = xmobarColor base01 "" . shorten 60 
+  , ppUrgent = xmobarColor yellow base3
   , ppWsSep  = " : "
   , ppLayout = const ""
   -- receives three formatted strings: workspace, layout, current window title
