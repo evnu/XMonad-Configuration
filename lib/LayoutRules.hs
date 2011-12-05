@@ -26,6 +26,9 @@ import XMonad.Layout.ShowWName
 -- Data.Ratio for IM layout
 import Data.Ratio ((%))
 
+-- color theme
+import SolarizedColors
+
 -- special layouts
 layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ 
   onWorkspace "2:www" webLayout $ 
@@ -45,7 +48,7 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
         tabLayout    = noBorders (tabbed shrinkText myTheme)
 
         --Im Layout
-        chatLayout = avoidStruts $ smartBorders $ reflectHoriz $ withIM pidginRatio pidginRoster (Grid ||| tabLayout) where
+        chatLayout = avoidStruts $ smartBorders $ reflectHoriz $ withIM pidginRatio pidginRoster (Grid ||| tabLayout ||| writingLayout) where
                 pidginRatio     = (1%7)
                 pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
@@ -70,12 +73,17 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
 				
 
 -- themeing for tab layout
-myTheme = defaultTheme { decoHeight = 16
-                        , activeColor = "#a6c292"
-                        , activeBorderColor = "#a6c292"
-                        , activeTextColor = "#000000"
-                        , inactiveBorderColor = "#000000"
-                        }
+myTheme = defaultTheme  {
+    activeColor = base03
+    , inactiveColor = base02
+    , urgentColor = yellow
+    , activeBorderColor = base03
+    , inactiveBorderColor = base03
+    , urgentBorderColor = yellow
+    , activeTextColor = base2
+    , inactiveTextColor = base01
+    , urgentTextColor = yellow
+    }
 
 swnConfig :: SWNConfig
 swnConfig = SWNC {
