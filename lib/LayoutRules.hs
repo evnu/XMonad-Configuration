@@ -18,6 +18,10 @@ import XMonad.Layout.Combo
 import XMonad.Layout.TwoPane
 import XMonad.Layout.Circle
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Tabbed
+
+import XMonad.Layout.DragPane
+import XMonad.Layout.LayoutCombinators hiding ((|||))
 
 -- show workspace name on switch
 import XMonad.Layout.ShowWName
@@ -63,14 +67,9 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
         
         -- write with big master
         writingLayout = avoidStruts $ Mirror tiled
-        -- TODO doesn't work. fuck gimp.
-        gimp = withIM (toolboxRatio) (toolboxRole) $ (reflectHoriz $ withIM (dockRatio) (dockRole) $ Grid ||| tabLayout)
-					where
-						toolboxRatio = 1%10
-						toolboxRole = Role "gimp-toolbox"
-						dockRatio  = 15%100
-						dockRole = Role "gimp-dock"
-				
+
+        -- gimp
+        gimp = withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full
 
 -- themeing for tab layout
 myTheme = defaultTheme  {
