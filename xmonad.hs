@@ -39,7 +39,6 @@ main = do
 	output <- spawnPipe "xmobar"
 	-- trayer
 	--none  <- spawn "trayer.sh"
-	--mocpBar <- spawnPipe "xmobar '%StdinReader%' -t -o "
 	xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
 
@@ -58,7 +57,7 @@ myHooks = composeAll [
   ]
 
 scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
-              , NS "mocp"  spawnMocp  findMocp  manageMocp  -- music on console
+              , NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
               , NS "htop"  spawnhtop  findhtop  managehtop  -- htop
               ]
@@ -71,9 +70,9 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
                     w = 0.6
                     t = (1 - h)/2
                     l = (1 - w)/2
-                spawnMocp   = myTerminal ++ " -title MOC -e mocp"
-                findMocp    = fmap ("MOC" `isPrefixOf`) title
-                manageMocp  = customFloating $ W.RationalRect l t w h
+                spawnNcmpcpp   = myTerminal ++ " -name mpd -e ncmpcpp"
+                findNcmpcpp    = resource =? "mpd"
+                manageNcmpcpp  = customFloating $ W.RationalRect l t w h
 									where
 										h = 0.5
 										w = 0.8
@@ -102,7 +101,7 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
 myKeyBindings = [
     ((windowsKey, xK_e),     viewEmptyWorkspace)  -- jump to empty workspace
   , ((windowsKey, xK_a),     scratchAlsamixer)
-  , ((windowsKey, xK_F11),   scratchMocp)
+  , ((windowsKey, xK_F11),   scratchNcmpcpp)
   , ((windowsKey, xK_d),     scratchDing)
   , ((windowsKey, xK_g),     scratchHtop)
   , ((windowsKey, xK_Print), spawn "scrot")
@@ -111,13 +110,13 @@ myKeyBindings = [
   ]
   ++
   [
-  -- build view instead of greedyview - if we want a view on a screen, we'll stick with it
-  -- and don't allow another screen to access it.
-    ((m .|. mod4Mask, k), windows $ f i) | (i,k) <- zip myWorkSpaces [xK_1 .. xK_9], (f,m) <- [(W.view,0),(W.shift, shiftMask)]
+      -- build view instead of greedyview - if we want a view on a screen, we'll stick with it
+      -- and don't allow another screen to access it.
+      ((m .|. mod4Mask, k), windows $ f i) | (i,k) <- zip myWorkSpaces [xK_1 .. xK_9], (f,m) <- [(W.view,0),(W.shift, shiftMask)]
   ]
   where
     scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
-    scratchMocp      = namedScratchpadAction scratchPads "mocp"
+    scratchNcmpcpp   = namedScratchpadAction scratchPads "ncmpcpp"
     scratchDing      = namedScratchpadAction scratchPads "ding"
     scratchHtop      = namedScratchpadAction scratchPads "htop"
 
