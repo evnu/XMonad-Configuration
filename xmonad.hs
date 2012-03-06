@@ -25,6 +25,10 @@ import XMonad.Util.Run -- spawnPipe and hPutStrLn
 -- urgent notifications
 import XMonad.Hooks.UrgencyHook
 
+-- one-line file edits
+import XMonad.Prompt
+import XMonad.Prompt.AppendFile
+
 -- my configuration modules
 import ApplicationRules
 import LayoutRules
@@ -107,6 +111,9 @@ myKeyBindings = [
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
 	, ((windowsKey, xK_p),     spawn "~/bin/dmenu_run")
+  , ((windowsKey, xK_n),     do
+      spawn ("date | perl -pe 'chomp and $_ .= \" \"'>>" ++ "/home/evnu/todos")
+      appendFilePrompt defaultXPConfig "/home/evnu/todos")
   ]
   ++
   [
