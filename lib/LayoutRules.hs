@@ -69,7 +69,7 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
         writingLayout = avoidStruts $ Mirror tiled
 
         -- gimp
-        gimp = withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full
+        gimp = withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full ||| Grid
 
 -- themeing for tab layout
 myTheme = defaultTheme  {
