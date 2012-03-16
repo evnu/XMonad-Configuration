@@ -64,6 +64,7 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
               , NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
               , NS "htop"  spawnhtop  findhtop  managehtop  -- htop
+              , NS "mutt"  spawnMutt  findMutt  manageMutt  -- mutt
               ]
               where
                 spawnMixer  = "aumix"
@@ -98,6 +99,14 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
 										w = 0.8
 										t = (1 - h)/2
 										l = (1 - w)/2
+                spawnMutt   = myTerminal ++ " -name mutt -e mutt"
+                findMutt    = resource =? "mutt"
+                manageMutt  = customFloating $ W.RationalRect l t w h
+									where
+										h = 0.5
+										w = 0.8
+										t = (1 - h)/2
+										l = (1 - w)/2
 
 {-
   - key bindings
@@ -108,6 +117,7 @@ myKeyBindings = [
   , ((windowsKey, xK_F11),   scratchNcmpcpp)
   , ((windowsKey, xK_d),     scratchDing)
   , ((windowsKey, xK_g),     scratchHtop)
+  , ((windowsKey, xK_m),     scratchMutt)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
 	, ((windowsKey, xK_p),     spawn "~/bin/dmenu_run")
@@ -133,6 +143,7 @@ myKeyBindings = [
     scratchNcmpcpp   = namedScratchpadAction scratchPads "ncmpcpp"
     scratchDing      = namedScratchpadAction scratchPads "ding"
     scratchHtop      = namedScratchpadAction scratchPads "htop"
+    scratchMutt      = namedScratchpadAction scratchPads "mutt"
 
 
 -- put some applications on specific workspaces
