@@ -126,7 +126,7 @@ myKeyBindings = [
   -}
   , ((0, 0x1008FF17), spawn "ncmpcpp prev")
   , ((0, 0x1008ff17), spawn "ncmpcpp next")
-  , ((0, 0x1008FF14), spawn "ncmpcpp play")
+  , ((0, 0x1008FF14), spawn "ncmpcpp toggle")
   , ((0, 0x1008FF15), spawn "ncmpcpp stop")
   , ((windowsKey, xK_n),     do
       spawn ("date | perl -pe 'chomp and $_ .= \" \"'>>" ++ "/home/evnu/todos")
