@@ -36,20 +36,21 @@ import SolarizedColors
 -- special layouts
 layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ 
   onWorkspace "2:www" webLayout $ 
-	onWorkspace "3:mail" mailLayout $ 
-	onWorkspace "5:dev" devLayout $
-  onWorkspace "6:ddd" devLayout $
-  onWorkspace "7:write" writingLayout $
-	onWorkspace "9:gimp" gimp $
-	standardLayouts
+  onWorkspace "3:mail" mailLayout $ 
+  onWorkspace "4:dev0" devLayout $ 
+  onWorkspace "5:dev1" devLayout $
+  onWorkspace "6:dev2" devLayout $
+  onWorkspace "7:dev3" devLayout $
+  onWorkspace "8:write" writingLayout $
+  onWorkspace "9:gimp" gimp $ standardLayouts
     where
         standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| smartBorders Full  ||| Mirror tiled
 
         --Layouts
-        tiled        = smartBorders (ResizableTall 1 (2/100) (1/2) [])
-        reflectTiled = (reflectHoriz tiled)
-        full         = noBorders Full
-        tabLayout    = noBorders (tabbed shrinkText myTheme)
+        tiled        = avoidStruts $ smartBorders (ResizableTall 1 (2/100) (1/2) [])
+        reflectTiled = avoidStruts $ (reflectHoriz tiled)
+        full         = avoidStruts $ noBorders Full
+        tabLayout    = avoidStruts $ noBorders (tabbed shrinkText myTheme)
 
         --Im Layout
         chatLayout = avoidStruts $ smartBorders $ reflectHoriz $ withIM pidginRatio pidginRoster (Grid ||| tabLayout ||| writingLayout) where
@@ -63,7 +64,7 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
         devLayout = avoidStruts $ (Grid ||| full) ||| Mirror tiled
 
         --mail layout
-        mailLayout = standardLayouts
+        mailLayout = avoidStruts $ standardLayouts
         
         -- write with big master
         writingLayout = avoidStruts $ Mirror tiled
