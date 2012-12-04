@@ -41,8 +41,6 @@ stdOutUrgencyHook = StdoutUrgencyHook
 main = do
 	-- momma needs a bar.
 	output <- spawnPipe "xmobar"
-	-- trayer
-	--none  <- spawn "trayer.sh"
 	xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
 
@@ -60,11 +58,11 @@ myHooks = composeAll [
     , namedScratchpadManageHook scratchPads
   ]
 
-scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
-              , NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
+scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
               , NS "htop"  spawnhtop  findhtop  managehtop  -- htop
               , NS "mutt"  spawnMutt  findMutt  manageMutt  -- mutt
+              , NS "bc"  spawnBC  findBC  manageBC  -- bc
               ]
               where
                 spawnMixer  = "aumix"
@@ -108,16 +106,25 @@ scratchPads = [ NS "mixer" spawnMixer findMixer manageMixer -- mixer scratchpad
 										t = (1 - h)/2
 										l = (1 - w)/2
 
+                spawnBC   = myTerminal ++ " -name bc -e bc -l"
+                findBC    = resource =? "bc"
+                manageBC  = customFloating $ W.RationalRect l t w h
+									where
+										h = 0.5
+										w = 0.8
+										t = (1 - h)/2
+										l = (1 - w)/2
+
 {-
   - key bindings
 -}
 myKeyBindings = [
     ((windowsKey, xK_e),     viewEmptyWorkspace)  -- jump to empty workspace
-  , ((windowsKey, xK_a),     scratchAlsamixer)
   , ((windowsKey, xK_F11),   scratchNcmpcpp)
   , ((windowsKey, xK_d),     scratchDing)
   , ((windowsKey, xK_g),     scratchHtop)
   , ((windowsKey, xK_m),     scratchMutt)
+  , ((windowsKey, xK_a),     scratchBC)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
 	, ((windowsKey, xK_p),     spawn "~/bin/dmenu_run")
@@ -139,11 +146,11 @@ myKeyBindings = [
       ((m .|. mod4Mask, k), windows $ f i) | (i,k) <- zip myWorkSpaces [xK_1 .. xK_9], (f,m) <- [(W.view,0),(W.shift, shiftMask)]
   ]
   where
-    scratchAlsamixer = namedScratchpadAction scratchPads "mixer"
     scratchNcmpcpp   = namedScratchpadAction scratchPads "ncmpcpp"
     scratchDing      = namedScratchpadAction scratchPads "ding"
     scratchHtop      = namedScratchpadAction scratchPads "htop"
     scratchMutt      = namedScratchpadAction scratchPads "mutt"
+    scratchBC        = namedScratchpadAction scratchPads "bc"
 
 
 -- put some applications on specific workspaces
