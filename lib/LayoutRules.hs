@@ -47,24 +47,25 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
         standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| smartBorders Full  ||| Mirror tiled
 
         --Layouts
-        tiled        = avoidStruts $ smartBorders (ResizableTall 1 (2/100) (1/2) [])
-        reflectTiled = avoidStruts $ (reflectHoriz tiled)
-        full         = avoidStruts $ noBorders Full
-        tabLayout    = avoidStruts $ noBorders (tabbed shrinkText myTheme)
+        tiled        = smartBorders (ResizableTall 1 (2/100) (1/2) [])
+        reflectTiled = (reflectHoriz tiled)
+        full         = noBorders Full
+        tabLayout    = noBorders (tabbed shrinkText myTheme)
 
         --Im Layout
-        chatLayout = avoidStruts $ smartBorders $ reflectHoriz $ withIM pidginRatio pidginRoster (Grid ||| tabLayout ||| writingLayout) where
+        chatLayout = avoidStruts $ smartBorders $
+            reflectHoriz $ withIM pidginRatio pidginRoster (Grid ||| tabLayout ||| writingLayout) where
                 pidginRatio     = (1%7)
                 pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
         --Web Layout
-        webLayout      = avoidStruts $ (tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
+        webLayout      = avoidStruts (tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
 
         --terminal/dev layout
-        devLayout = avoidStruts $ (Grid ||| full) ||| Mirror tiled
+        devLayout = avoidStruts (Grid ||| full ||| Mirror tiled)
 
         --mail layout
-        mailLayout = avoidStruts $ standardLayouts
+        mailLayout = standardLayouts
         
         -- write with big master
         writingLayout = avoidStruts $ Mirror tiled
