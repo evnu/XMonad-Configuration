@@ -61,7 +61,7 @@ myHooks = composeAll [
 scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
               , NS "htop"  spawnhtop  findhtop  managehtop  -- htop
-              , NS "mutt"  spawnMutt  findMutt  manageMutt  -- mutt
+              , NS "alot"  spawnAlot  findAlot  manageAlot  -- alot
               , NS "bc"  spawnBC  findBC  manageBC  -- bc
               ]
               where
@@ -97,9 +97,9 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
 										w = 0.8
 										t = (1 - h)/2
 										l = (1 - w)/2
-                spawnMutt   = myTerminal ++ " -name mutt -e mutt"
-                findMutt    = resource =? "mutt"
-                manageMutt  = customFloating $ W.RationalRect l t w h
+                spawnAlot   = myTerminal ++ " -name alot -e alot"
+                findAlot    = resource =? "alot"
+                manageAlot  = customFloating $ W.RationalRect l t w h
 									where
 										h = 0.5
 										w = 0.8
@@ -123,11 +123,11 @@ myKeyBindings = [
   , ((windowsKey, xK_F11),   scratchNcmpcpp)
   , ((windowsKey, xK_d),     scratchDing)
   , ((windowsKey, xK_g),     scratchHtop)
-  , ((windowsKey, xK_m),     scratchMutt)
+  , ((windowsKey, xK_m),     scratchAlot)
   , ((windowsKey, xK_a),     scratchBC)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
-	, ((windowsKey, xK_p),     spawn "~/bin/dmenu_run")
+  , ((windowsKey, xK_p),     spawn "/usr/bin/dmenu_run")
   {-
       control mpd
   -}
@@ -149,12 +149,12 @@ myKeyBindings = [
     scratchNcmpcpp   = namedScratchpadAction scratchPads "ncmpcpp"
     scratchDing      = namedScratchpadAction scratchPads "ding"
     scratchHtop      = namedScratchpadAction scratchPads "htop"
-    scratchMutt      = namedScratchpadAction scratchPads "mutt"
+    scratchAlot      = namedScratchpadAction scratchPads "alot"
     scratchBC        = namedScratchpadAction scratchPads "bc"
 
 
 -- put some applications on specific workspaces
-manageWorkspaces = composeAll .  concat $ rules
+manageWorkspaces = composeAll . concat $ rules
 
 -- some aliases
 windowsKey = mod4Mask
@@ -186,9 +186,9 @@ myPP output = defaultPP {
   , ppTitle  = xmobarColor base01 "" . shorten 60 
   , ppUrgent = xmobarColor yellow base3
   , ppWsSep  = " : "
-  , ppLayout = const ""
+  --, ppLayout = const ""
   -- receives three formatted strings: workspace, layout, current window title
-  , ppOrder  = \(ws:_:t:_) -> [ws,t] -- ignore layout
+  --, ppOrder  = \(ws:_:t:_) -> [ws,t] -- ignore layout
   , ppOutput = hPutStrLn output 
  }
   where

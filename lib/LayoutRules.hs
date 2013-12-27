@@ -19,6 +19,7 @@ import XMonad.Layout.TwoPane
 import XMonad.Layout.Circle
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Tabbed
+import XMonad.Layout.MultiColumns
 
 import XMonad.Layout.DragPane
 import XMonad.Layout.LayoutCombinators hiding ((|||))
@@ -44,7 +45,7 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
   onWorkspace "8:write" writingLayout $
   onWorkspace "9:gimp" gimp $ standardLayouts
     where
-        standardLayouts = avoidStruts $ Tall 1 (3/100) (1/2) ||| smartBorders Full  ||| Mirror tiled
+        standardLayouts = Tall 1 (3/100) (1/2) ||| smartBorders Full  ||| Mirror tiled
 
         --Layouts
         tiled        = smartBorders (ResizableTall 1 (2/100) (1/2) [])
@@ -53,22 +54,22 @@ layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
         tabLayout    = noBorders (tabbed shrinkText myTheme)
 
         --Im Layout
-        chatLayout = avoidStruts $ smartBorders $
+        chatLayout = smartBorders $
             reflectHoriz $ withIM pidginRatio pidginRoster (Grid ||| tabLayout ||| writingLayout) where
                 pidginRatio     = (1%7)
                 pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
         --Web Layout
-        webLayout      = avoidStruts (tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
+        webLayout = (tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
 
         --terminal/dev layout
-        devLayout = avoidStruts (Grid ||| full ||| Mirror tiled)
+        devLayout = (Grid ||| full ||| Mirror tiled ||| (multiCol [6] 6 0.01 0.5))
 
         --mail layout
         mailLayout = standardLayouts
         
         -- write with big master
-        writingLayout = avoidStruts $ Mirror tiled
+        writingLayout = Mirror tiled
 
         -- gimp
         gimp = withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full ||| Grid
@@ -88,8 +89,8 @@ myTheme = defaultTheme  {
 
 swnConfig :: SWNConfig
 swnConfig = SWNC {
-									swn_font    = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
-								, swn_bgcolor = "black"
-								, swn_color   = "white"
-								, swn_fade    = 1
+    swn_font    = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+        , swn_bgcolor = "black"
+        , swn_color   = "white"
+        , swn_fade    = 1
 }
