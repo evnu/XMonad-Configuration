@@ -101,7 +101,7 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                 findAlot    = resource =? "alot"
                 manageAlot  = customFloating $ W.RationalRect l t w h
 									where
-										h = 0.5
+										h = 0.8
 										w = 0.8
 										t = (1 - h)/2
 										l = (1 - w)/2
