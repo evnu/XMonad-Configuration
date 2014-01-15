@@ -76,44 +76,43 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                 spawnNcmpcpp   = myTerminal ++ " -name mpd -e ncmpcpp"
                 findNcmpcpp    = resource =? "mpd"
                 manageNcmpcpp  = customFloating $ W.RationalRect l t w h
-									where
-										h = 0.5
-										w = 0.8
-										t = (1 - h)/2
-										l = (1 - w)/2
+                  where
+                    h = 0.5
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
                 spawnDing   = "ding"
                 findDing    = className =? "Ding"
                 manageDing  = customFloating $ W.RationalRect l t w h
-									where
-										h = 0.5
-										w = 0.5 
-										t = (1 - h)/2
-										l = (1 - w)/2
+                  where
+                    h = 0.5
+                    w = 0.5 
+                    t = (1 - h)/2
+                    l = (1 - w)/2
                 spawnhtop   = myTerminal ++ " -title htop -e htop"
                 findhtop    = fmap ("htop" `isPrefixOf`) title
                 managehtop  = customFloating $ W.RationalRect l t w h
-									where
-										h = 0.7
-										w = 0.8
-										t = (1 - h)/2
-										l = (1 - w)/2
+                  where
+                    h = 0.7
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
                 spawnAlot   = myTerminal ++ " -name alot -e alot"
                 findAlot    = resource =? "alot"
                 manageAlot  = customFloating $ W.RationalRect l t w h
-									where
-										h = 0.8
-										w = 0.8
-										t = (1 - h)/2
-										l = (1 - w)/2
-
+                  where
+                    h = 0.8
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
                 spawnBC   = myTerminal ++ " -name bc -e bc -l"
                 findBC    = resource =? "bc"
                 manageBC  = customFloating $ W.RationalRect l t w h
-									where
-										h = 0.5
-										w = 0.8
-										t = (1 - h)/2
-										l = (1 - w)/2
+                  where
+                    h = 0.5
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
 
 {-
   - key bindings
