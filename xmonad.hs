@@ -122,7 +122,7 @@ myKeyBindings = [
   , ((windowsKey, xK_F11),   scratchNcmpcpp)
   , ((windowsKey, xK_d),     scratchDing)
   , ((windowsKey, xK_g),     scratchHtop)
-  , ((windowsKey, xK_m),     scratchAlot)
+  , ((windowsKey, xK_n),     scratchAlot)
   , ((windowsKey, xK_a),     scratchBC)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
@@ -134,9 +134,6 @@ myKeyBindings = [
   , ((0, 0x1008ff17), spawn "ncmpcpp next")
   , ((0, 0x1008FF14), spawn "ncmpcpp toggle")
   , ((0, 0x1008FF15), spawn "ncmpcpp stop")
-  , ((windowsKey, xK_n),     do
-      spawn ("date | perl -pe 'chomp and $_ .= \" \"'>>" ++ "/home/evnu/todos")
-      appendFilePrompt defaultXPConfig "/home/evnu/todos")
   ]
   ++
   [
