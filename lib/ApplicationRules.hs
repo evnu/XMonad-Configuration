@@ -21,6 +21,7 @@ match a action = className =? a --> action
 rules = [
        [ className =? a --> doShift "1:im" | a <- instantMessageApplications ]
      , [ className =? a --> doShift "2:www" | a <- webApplications ]
+     , [ className =? a --> doShift "3:vsn" | a <- vsnApplications ]
      , [ className =? a --> doShift "3:mail"| a <- mailApplications ]
      , [ className =? a --> doShift "4:IRC" | a <- ircApplications ]
      , [ className =? a --> doShift "5:dev" | a <- devApplications ]
@@ -36,6 +37,7 @@ rules = [
 -- use list comprehension to make the configuration more readable
 instantMessageApplications = ["Pidgin"]
 webApplications = ["Firefox", "Liferea", "Namoroka", "Vimprobable"]
+vsnApplications = ["thg"]
 mailApplications = ["Sylpheed", "sylpheed"]
 ircApplications = ["Xchat", "xchat"]
 devApplications = []

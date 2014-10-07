@@ -33,7 +33,6 @@ import XMonad.Prompt.AppendFile
 import ApplicationRules
 import LayoutRules
 import Workspaces
-import SolarizedColors
 
 stdOutUrgencyHook :: StdoutUrgencyHook
 stdOutUrgencyHook = StdoutUrgencyHook
@@ -46,7 +45,15 @@ main = do
 
 myTerminal = "urxvt"
 
-{- 
+{-
+ define some colors
+-}
+foreground = "#f5f5f5"
+background = "#000000"
+red = "#ff0000"
+white = "#ffffff"
+
+{-
   - manage Hooks
 -}
 
@@ -63,6 +70,7 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "htop"  spawnhtop  findhtop  managehtop  -- htop
               , NS "alot"  spawnAlot  findAlot  manageAlot  -- alot
               , NS "bc"  spawnBC  findBC  manageBC  -- bc
+              , NS "pry" spawnPry findPry managePry -- pry
               ]
               where
                 spawnMixer  = "aumix"
@@ -86,7 +94,7 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                 manageDing  = customFloating $ W.RationalRect l t w h
                   where
                     h = 0.5
-                    w = 0.5 
+                    w = 0.5
                     t = (1 - h)/2
                     l = (1 - w)/2
                 spawnhtop   = myTerminal ++ " -title htop -e htop"
@@ -113,6 +121,14 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                     w = 0.8
                     t = (1 - h)/2
                     l = (1 - w)/2
+                spawnPry   = myTerminal ++ " -name pry -e pry"
+                findPry    = resource =? "pry"
+                managePry  = customFloating $ W.RationalRect l t w h
+                  where
+                    h = 0.5
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
 
 {-
   - key bindings
@@ -124,9 +140,10 @@ myKeyBindings = [
   , ((windowsKey, xK_g),     scratchHtop)
   , ((windowsKey, xK_n),     scratchAlot)
   , ((windowsKey, xK_a),     scratchBC)
+  , ((windowsKey, xK_o),     scratchPry)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
-  , ((windowsKey, xK_p),     spawn "/usr/bin/dmenu_run")
+  , ((windowsKey, xK_p),     spawn "dmenu_run")
   {-
       control mpd
   -}
@@ -147,6 +164,7 @@ myKeyBindings = [
     scratchHtop      = namedScratchpadAction scratchPads "htop"
     scratchAlot      = namedScratchpadAction scratchPads "alot"
     scratchBC        = namedScratchpadAction scratchPads "bc"
+    scratchPry       = namedScratchpadAction scratchPads "pry"
 
 
 -- put some applications on specific workspaces
@@ -158,34 +176,28 @@ windowsKey = mod4Mask
 {-
 	xmonad style
 -}
-myConfig output = defaultConfig { 
+myConfig output = defaultConfig {
            terminal    = myTerminal
          , modMask     = windowsKey
-         , borderWidth = 2 
+         , borderWidth = 0
          , manageHook  = myHooks
-         , layoutHook  = LayoutRules.layoutRules 
+         , layoutHook  = LayoutRules.layoutRules
          , workspaces  = myWorkSpaces
-         -- set colors
-         , normalBorderColor = base02
-         , focusedBorderColor = cyan
          , logHook = dynamicLogWithPP $ myPP output
          } `additionalKeys` myKeyBindings
 {-
   - xmobar style
 -}
-myPP output = defaultPP { 
-    ppCurrent = xmobarColor base02 base00 . wrap "[" "]"
+myPP output = defaultPP {
+    ppCurrent = xmobarColor foreground background . wrap "[" "]"
   , ppVisible = wrap "(" ")"
   , ppHidden = noScratchPad
   , ppHiddenNoWindows = const ""
-  , ppSep    = " -> " 
-  , ppTitle  = xmobarColor base01 "" . shorten 60 
-  , ppUrgent = xmobarColor yellow base3
+  , ppSep    = " -> "
+  , ppTitle  = xmobarColor foreground "" . shorten 60
+  , ppUrgent = xmobarColor red white
   , ppWsSep  = " : "
-  --, ppLayout = const ""
-  -- receives three formatted strings: workspace, layout, current window title
-  --, ppOrder  = \(ws:_:t:_) -> [ws,t] -- ignore layout
-  , ppOutput = hPutStrLn output 
+  , ppOutput = hPutStrLn output
  }
   where
     noScratchPad ws = if ws == "NSP" then "" else ws

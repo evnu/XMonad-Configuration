@@ -1,11 +1,10 @@
 -- my simple xmobar config. put into ~/.xmobarrc
-Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+Config { font = "xft:terminus:pixelsize=14:antialias=true:hinting=true"
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 100
        , lowerOnStart = False
        , commands = [ Run StdinReader
-                    , Run Weather "EDDB" ["-t","<station>: <tempC>C @ <hour>","-L","15","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
@@ -14,5 +13,5 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% %cpu% | %memory% | %battery% }{ <fc=#5B5991>%date%</fc>| %EDDB% | %uname%"
+       , template = "<fc=#d8b365>%StdinReader%</fc> %cpu% | %memory% | %battery% }{ <fc=#5ab4ac>%date%</fc>| %uname%"
        }

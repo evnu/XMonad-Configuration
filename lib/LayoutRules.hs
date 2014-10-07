@@ -2,7 +2,12 @@ module LayoutRules
 where
 
 import XMonad
+-- ManageDocks: Handle dock type programs, e.g. xmobar
 import XMonad.Hooks.ManageDocks
+-- Apparently, xmobar does not set the STRUTS property correctly;
+-- fix the problem by setting a manual gap at the top of the screen
+import XMonad.Layout.Gaps
+
 import XMonad.Layout.Tabbed
 
 -- Make a given layout display without borders -> smartBorders: only show border if really
@@ -13,13 +18,11 @@ import XMonad.Layout.Reflect
 import XMonad.Layout.IM
 import XMonad.Layout.Tabbed
 import XMonad.Layout.PerWorkspace
-import XMonad.Layout.Grid
 import XMonad.Layout.Combo
 import XMonad.Layout.TwoPane
 import XMonad.Layout.Circle
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Tabbed
-import XMonad.Layout.MultiColumns
 
 import XMonad.Layout.DragPane
 import XMonad.Layout.LayoutCombinators hiding ((|||))
@@ -32,60 +35,47 @@ import XMonad.Layout.ShowWName
 import Data.Ratio ((%))
 
 -- color theme
-import SolarizedColors
+import XMonad.Util.Themes
 
 -- special layouts
-layoutRules = showWName' swnConfig  $ onWorkspace "1:im" chatLayout $ 
-  onWorkspace "2:www" webLayout $ 
-  onWorkspace "3:mail" mailLayout $ 
-  onWorkspace "4:dev0" devLayout $ 
+layoutRules = gaps [(U,20)] $ showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
+  onWorkspace "2:www" webLayout $
+  onWorkspace "3:vsn" devLayout $
+  onWorkspace "4:dev0" devLayout $
   onWorkspace "5:dev1" devLayout $
   onWorkspace "6:dev2" devLayout $
   onWorkspace "7:dev3" devLayout $
-  onWorkspace "8:write" writingLayout $
+  onWorkspace "8:dev4" devLayout $
   onWorkspace "9:gimp" gimp $ standardLayouts
     where
-        standardLayouts = Tall 1 (3/100) (1/2) ||| smartBorders Full  ||| Mirror tiled
+        standardLayouts = Tall 1 (3/100) (1/2) ||| Full ||| Mirror tiled
 
         --Layouts
-        tiled        = smartBorders (ResizableTall 1 (2/100) (1/2) [])
+        tiled        = (ResizableTall 1 (2/100) (1/2) [])
         reflectTiled = (reflectHoriz tiled)
         full         = noBorders Full
-        tabLayout    = noBorders (tabbed shrinkText myTheme)
+        tabLayout    = noBorders (tabbed shrinkText $ theme smallClean)
 
         --Im Layout
-        chatLayout = smartBorders $
-            reflectHoriz $ withIM pidginRatio pidginRoster (Grid ||| tabLayout ||| writingLayout) where
+        chatLayout =
+            reflectHoriz $ withIM pidginRatio pidginRoster (tabLayout ||| writingLayout) where
                 pidginRatio     = (1%7)
                 pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
         --Web Layout
-        webLayout = (tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
+        webLayout = avoidStruts(tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
 
         --terminal/dev layout
-        devLayout = (Grid ||| full ||| Mirror tiled ||| (multiCol [6] 6 0.01 0.5))
+        devLayout = (full ||| Mirror tiled)
 
         --mail layout
         mailLayout = standardLayouts
-        
+
         -- write with big master
         writingLayout = Mirror tiled
 
         -- gimp
-        gimp = withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full ||| Grid
-
--- themeing for tab layout
-myTheme = defaultTheme  {
-    activeColor = base03
-    , inactiveColor = base02
-    , urgentColor = yellow
-    , activeBorderColor = base03
-    , inactiveBorderColor = base03
-    , urgentBorderColor = yellow
-    , activeTextColor = base2
-    , inactiveTextColor = base01
-    , urgentTextColor = yellow
-    }
+        gimp = (withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full) ||| devLayout
 
 swnConfig :: SWNConfig
 swnConfig = SWNC {
