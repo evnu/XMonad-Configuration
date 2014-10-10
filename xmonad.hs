@@ -29,6 +29,8 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Prompt
 import XMonad.Prompt.AppendFile
 
+-- cycle workspaces
+import XMonad.Actions.CycleWS
 -- my configuration modules
 import ApplicationRules
 import LayoutRules
@@ -71,6 +73,7 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "alot"  spawnAlot  findAlot  manageAlot  -- alot
               , NS "bc"  spawnBC  findBC  manageBC  -- bc
               , NS "pry" spawnPry findPry managePry -- pry
+              , NS "erl" spawnErl findErl manageErl -- erl
               ]
               where
                 spawnMixer  = "aumix"
@@ -129,6 +132,14 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                     w = 0.8
                     t = (1 - h)/2
                     l = (1 - w)/2
+                spawnErl   = myTerminal ++ " -name erl -e erl"
+                findErl    = resource =? "erl"
+                manageErl  = customFloating $ W.RationalRect l t w h
+                  where
+                    h = 0.5
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
 
 {-
   - key bindings
@@ -141,9 +152,11 @@ myKeyBindings = [
   , ((windowsKey, xK_n),     scratchAlot)
   , ((windowsKey, xK_a),     scratchBC)
   , ((windowsKey, xK_o),     scratchPry)
+  , ((windowsKey, xK_u),     scratchErl)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
   , ((windowsKey, xK_p),     spawn "dmenu_run")
+  , ((windowsKey, xK_l),     toggleWS) -- cycle to previous workspace
   {-
       control mpd
   -}
@@ -165,6 +178,7 @@ myKeyBindings = [
     scratchAlot      = namedScratchpadAction scratchPads "alot"
     scratchBC        = namedScratchpadAction scratchPads "bc"
     scratchPry       = namedScratchpadAction scratchPads "pry"
+    scratchErl       = namedScratchpadAction scratchPads "erl"
 
 
 -- put some applications on specific workspaces
