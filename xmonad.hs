@@ -40,9 +40,9 @@ stdOutUrgencyHook :: StdoutUrgencyHook
 stdOutUrgencyHook = StdoutUrgencyHook
 
 main = do
-	-- momma needs a bar.
-	output <- spawnPipe "xmobar"
-	xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
+    -- momma needs a bar.
+    output <- spawnPipe "xmobar"
+    xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
 
 myTerminal = "urxvt"
@@ -160,10 +160,10 @@ myKeyBindings = [
   {-
       control mpd
   -}
-  , ((0, 0x1008FF17), spawn "ncmpcpp prev")
-  , ((0, 0x1008ff17), spawn "ncmpcpp next")
-  , ((0, 0x1008FF14), spawn "ncmpcpp toggle")
-  , ((0, 0x1008FF15), spawn "ncmpcpp stop")
+  , ((0, 0x1008FF14), spawn "mpc toggle")
+  , ((0, 0x1008FF15), spawn "mpc stop")
+  , ((0, 0x1008FF16), spawn "mpc prev")
+  , ((0, 0x1008FF17), spawn "mpc next")
   ]
   ++
   [
