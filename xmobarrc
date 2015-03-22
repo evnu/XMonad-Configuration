@@ -13,5 +13,5 @@ Config { font = "xft:terminus:pixelsize=14:antialias=true:hinting=true"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#d8b365>%StdinReader%</fc> %cpu% | %memory% | %battery% }{ <fc=#5ab4ac>%date%</fc>| %uname%"
+       , template = "<fc=#d8b365>%StdinReader%</fc> }{ %cpu% | %memory% | %battery% <fc=#5ab4ac>%date%</fc>"
        }
