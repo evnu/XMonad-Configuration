@@ -74,6 +74,7 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "bc"  spawnBC  findBC  manageBC  -- bc
               , NS "pry" spawnPry findPry managePry -- pry
               , NS "erl" spawnErl findErl manageErl -- erl
+              , NS "rusti" spawnRusti findRusti manageRusti -- rusti
               ]
               where
                 spawnMixer  = "aumix"
@@ -140,6 +141,14 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                     w = 0.8
                     t = (1 - h)/2
                     l = (1 - w)/2
+                spawnRusti   = myTerminal ++ " -name rusti -e rusti"
+                findRusti    = resource =? "rusti"
+                manageRusti  = customFloating $ W.RationalRect l t w h
+                  where
+                    h = 0.5
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
 
 {-
   - key bindings
@@ -153,6 +162,7 @@ myKeyBindings = [
   , ((windowsKey, xK_a),     scratchBC)
   , ((windowsKey, xK_o),     scratchPry)
   , ((windowsKey, xK_u),     scratchErl)
+  , ((windowsKey, xK_r),     scratchRusti)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
   , ((windowsKey, xK_p),     spawn "dmenu_run")
@@ -179,6 +189,7 @@ myKeyBindings = [
     scratchBC        = namedScratchpadAction scratchPads "bc"
     scratchPry       = namedScratchpadAction scratchPads "pry"
     scratchErl       = namedScratchpadAction scratchPads "erl"
+    scratchRusti     = namedScratchpadAction scratchPads "rusti"
 
 
 -- put some applications on specific workspaces
