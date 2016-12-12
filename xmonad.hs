@@ -167,6 +167,7 @@ myKeyBindings = [
   , ((windowsKey, xK_b),     spawn "showbatt")
   , ((windowsKey, xK_p),     spawn "dmenu_run")
   , ((windowsKey, xK_f),     toggleWS) -- cycle to previous workspace
+  , ((windowsKey, xK_F12),   spawn "slock")
   {-
       control mpd
   -}
