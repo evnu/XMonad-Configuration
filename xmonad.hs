@@ -168,6 +168,12 @@ myKeyBindings = [
   , ((windowsKey, xK_p),     spawn "dmenu_run")
   , ((windowsKey, xK_f),     toggleWS) -- cycle to previous workspace
   , ((windowsKey, xK_F12),   spawn "slock")
+  -- cycle to other workspaces
+  , ((windowsKey, xK_Left),  prevWS)
+  , ((windowsKey, xK_Right), nextWS)
+  -- cycle to other physical screens
+  , ((windowsKey .|. shiftMask, xK_Left),  prevScreen)
+  , ((windowsKey .|. shiftMask, xK_Right), nextScreen)
   {-
       control mpd
   -}
@@ -200,7 +206,7 @@ manageWorkspaces = composeAll . concat $ rules
 windowsKey = mod4Mask
 
 {-
-	xmonad style
+    xmonad style
 -}
 myConfig output = defaultConfig {
            terminal    = myTerminal
