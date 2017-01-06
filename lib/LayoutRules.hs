@@ -48,7 +48,7 @@ layoutRules = gaps [(U,20)] $ showWName' swnConfig  $ onWorkspace "1:im" chatLay
   onWorkspace "8:dev4" devLayout $
   onWorkspace "9:gimp" gimp $ standardLayouts
     where
-        standardLayouts = Tall 1 (3/100) (1/2) ||| Full ||| Mirror tiled
+        standardLayouts = avoidStruts(Tall 1 (3/100) (1/2) ||| Full ||| Mirror tiled)
 
         --Layouts
         tiled        = (ResizableTall 1 (2/100) (1/2) [])
@@ -58,15 +58,16 @@ layoutRules = gaps [(U,20)] $ showWName' swnConfig  $ onWorkspace "1:im" chatLay
 
         --Im Layout
         chatLayout =
-            reflectHoriz $ withIM pidginRatio pidginRoster (tabLayout ||| writingLayout) where
-                pidginRatio     = (1%7)
-                pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
+            avoidStruts $
+                reflectHoriz $ withIM pidginRatio pidginRoster (tabLayout ||| writingLayout) where
+                    pidginRatio     = (1%7)
+                    pidginRoster    = (ClassName "Pidgin") `And` (Role "buddy_list")
 
         --Web Layout
         webLayout = avoidStruts(tabLayout ||| Tall 1(3/100) (1/2)) ||| (ThreeCol 1 (3/100) (1/2))
 
         --terminal/dev layout
-        devLayout = (full ||| Mirror tiled)
+        devLayout = avoidStruts(full ||| Mirror tiled)
 
         --mail layout
         mailLayout = standardLayouts
