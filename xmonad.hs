@@ -42,7 +42,7 @@ stdOutUrgencyHook = StdoutUrgencyHook
 main = do
     -- momma needs a bar.
     output <- spawnPipe "xmobar"
-    xmonad $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
+    xmonad $ docks $ withUrgencyHook stdOutUrgencyHook $ (myConfig output)
 
 
 myTerminal = "urxvt"
