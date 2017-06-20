@@ -75,6 +75,7 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "pry" spawnPry findPry managePry -- pry
               , NS "erl" spawnErl findErl manageErl -- erl
               , NS "rusti" spawnRusti findRusti manageRusti -- rusti
+              , NS "iex" spawnIex findIex manageIex -- iex
               ]
               where
                 spawnMixer  = "aumix"
@@ -149,6 +150,14 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                     w = 0.8
                     t = (1 - h)/2
                     l = (1 - w)/2
+                spawnIex   = myTerminal ++ " -name iex -e iex"
+                findIex    = resource =? "iex"
+                manageIex  = customFloating $ W.RationalRect l t w h
+                  where
+                    h = 0.5
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
 
 {-
   - key bindings
@@ -163,6 +172,7 @@ myKeyBindings = [
   , ((windowsKey, xK_o),     scratchPry)
   , ((windowsKey, xK_u),     scratchErl)
   , ((windowsKey, xK_r),     scratchRusti)
+  , ((windowsKey, xK_i),     scratchIex)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
   , ((windowsKey, xK_p),     spawn "dmenu_run")
@@ -197,6 +207,7 @@ myKeyBindings = [
     scratchPry       = namedScratchpadAction scratchPads "pry"
     scratchErl       = namedScratchpadAction scratchPads "erl"
     scratchRusti     = namedScratchpadAction scratchPads "rusti"
+    scratchIex       = namedScratchpadAction scratchPads "iex"
 
 
 -- put some applications on specific workspaces
