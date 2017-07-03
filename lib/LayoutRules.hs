@@ -69,9 +69,6 @@ layoutRules = gaps [(U,20)] $ showWName' swnConfig  $ onWorkspace "1:im" chatLay
         --terminal/dev layout
         devLayout = avoidStruts(full ||| Mirror tiled)
 
-        --mail layout
-        mailLayout = standardLayouts
-
         -- write with big master
         writingLayout = Mirror tiled
 
