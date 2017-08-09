@@ -4,6 +4,6 @@ where
 import XMonad
 
 myWorkSpaces :: [WorkspaceId]
-myWorkSpaces = ["1:im", "2:www", "3:vsn", "4:dev0", "5:dev1", "6:dev2", "7:dev3"] ++ map show [8..8] ++ ["9:gimp"]
+myWorkSpaces = ["1:im", "2:www", "3:dev0", "4:dev1", "5:dev2", "6:dev3", "7:dev4"] ++ map show [8..8] ++ ["9:gimp"]
 
 

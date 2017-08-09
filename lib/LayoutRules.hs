@@ -40,12 +40,11 @@ import XMonad.Util.Themes
 -- special layouts
 layoutRules = gaps [(U,20)] $ showWName' swnConfig  $ onWorkspace "1:im" chatLayout $
   onWorkspace "2:www" webLayout $
-  onWorkspace "3:vsn" devLayout $
-  onWorkspace "4:dev0" devLayout $
-  onWorkspace "5:dev1" devLayout $
-  onWorkspace "6:dev2" devLayout $
-  onWorkspace "7:dev3" devLayout $
-  onWorkspace "8:dev4" devLayout $
+  onWorkspace "3:dev0" devLayout $
+  onWorkspace "4:dev1" devLayout $
+  onWorkspace "5:dev2" devLayout $
+  onWorkspace "6:dev3" devLayout $
+  onWorkspace "7:dev4" devLayout $
   onWorkspace "9:gimp" gimp $ standardLayouts
     where
         standardLayouts = avoidStruts(Tall 1 (3/100) (1/2) ||| Full ||| Mirror tiled)
