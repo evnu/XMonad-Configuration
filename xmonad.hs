@@ -61,7 +61,7 @@ white = "#ffffff"
 
 myHooks :: ManageHook
 myHooks = composeAll [
-      manageHook defaultConfig
+      manageHook def
     , manageDocks, manageWorkspaces
     , composeOne [ isFullscreen -?> doFullFloat ] -- manage fullscreeen windows
     , namedScratchpadManageHook scratchPads
