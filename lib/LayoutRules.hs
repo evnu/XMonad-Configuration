@@ -71,8 +71,7 @@ layoutRules = gaps [(U,20)] $ showWName' swnConfig  $ onWorkspace "1:im" chatLay
         -- write with big master
         writingLayout = Mirror tiled
 
-        -- gimp
-        gimp = (withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full) ||| devLayout
+        gimp = devLayout
 
 swnConfig :: SWNConfig
 swnConfig = SWNC {
