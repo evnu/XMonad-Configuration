@@ -76,6 +76,7 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
               , NS "erl" spawnErl findErl manageErl -- erl
               , NS "rusti" spawnRusti findRusti manageRusti -- rusti
               , NS "iex" spawnIex findIex manageIex -- iex
+              , NS "vimwiki" spawnVimWiki findVimWiki manageVimWiki -- VimWiki
               ]
               where
                 spawnMixer  = "aumix"
@@ -158,6 +159,14 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                     w = 0.8
                     t = (1 - h)/2
                     l = (1 - w)/2
+                spawnVimWiki   = myTerminal ++ " -name vimwiki -e vim +VimwikiIndex"
+                findVimWiki    = resource =? "vimwiki"
+                manageVimWiki  = customFloating $ W.RationalRect l t w h
+                  where
+                    h = 0.5
+                    w = 0.8
+                    t = (1 - h)/2
+                    l = (1 - w)/2
 
 {-
   - key bindings
@@ -173,6 +182,7 @@ myKeyBindings = [
   , ((windowsKey, xK_u),     scratchErl)
   , ((windowsKey, xK_r),     scratchRusti)
   , ((windowsKey, xK_i),     scratchIex)
+  , ((windowsKey, xK_v),     scratchVimWiki)
   , ((windowsKey, xK_Print), spawn "scrot")
   , ((windowsKey, xK_b),     spawn "showbatt")
   , ((windowsKey, xK_p),     spawn "dmenu_run")
@@ -208,6 +218,7 @@ myKeyBindings = [
     scratchErl       = namedScratchpadAction scratchPads "erl"
     scratchRusti     = namedScratchpadAction scratchPads "rusti"
     scratchIex       = namedScratchpadAction scratchPads "iex"
+    scratchVimWiki   = namedScratchpadAction scratchPads "vimwiki"
 
 
 -- put some applications on specific workspaces
