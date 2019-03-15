@@ -67,8 +67,7 @@ myHooks = composeAll [
     , namedScratchpadManageHook scratchPads
   ]
 
-scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
-              , NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
+scratchPads = [NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lookup
               , NS "htop"  spawnhtop  findhtop  managehtop  -- htop
               , NS "alot"  spawnAlot  findAlot  manageAlot  -- alot
               , NS "bc"  spawnBC  findBC  manageBC  -- bc
@@ -85,14 +84,6 @@ scratchPads = [NS "ncmpcpp" spawnNcmpcpp  findNcmpcpp  manageNcmpcpp  -- mpd
                   where
                     h = 0.4
                     w = 0.6
-                    t = (1 - h)/2
-                    l = (1 - w)/2
-                spawnNcmpcpp   = myTerminal ++ " -name mpd -e ncmpcpp"
-                findNcmpcpp    = resource =? "mpd"
-                manageNcmpcpp  = customFloating $ W.RationalRect l t w h
-                  where
-                    h = 0.5
-                    w = 0.8
                     t = (1 - h)/2
                     l = (1 - w)/2
                 spawnDing   = "ding"
@@ -209,7 +200,6 @@ myKeyBindings = [
       ((m .|. mod4Mask, k), windows $ f i) | (i,k) <- zip myWorkSpaces [xK_1 .. xK_9], (f,m) <- [(W.view,0),(W.shift, shiftMask)]
   ]
   where
-    scratchNcmpcpp   = namedScratchpadAction scratchPads "ncmpcpp"
     scratchDing      = namedScratchpadAction scratchPads "ding"
     scratchHtop      = namedScratchpadAction scratchPads "htop"
     scratchAlot      = namedScratchpadAction scratchPads "alot"
