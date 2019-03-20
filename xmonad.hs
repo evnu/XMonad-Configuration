@@ -164,7 +164,6 @@ scratchPads = [NS "ding"  spawnDing  findDing  manageDing  -- ding dictionary lo
 -}
 myKeyBindings = [
     ((windowsKey, xK_e),     viewEmptyWorkspace)  -- jump to empty workspace
-  , ((windowsKey, xK_F11),   scratchNcmpcpp)
   , ((windowsKey, xK_d),     scratchDing)
   , ((windowsKey, xK_g),     scratchHtop)
   , ((windowsKey, xK_n),     scratchAlot)
