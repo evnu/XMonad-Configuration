@@ -1,6 +1,8 @@
 XMonad Configuration
 ====================
 
+Deprecated! Use [xmonad-ng](https://github.com/evnu/xmonad).
+
 ## Description
 The files in this repository are my configuration files for XMonad.
 
