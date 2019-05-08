@@ -10,6 +10,7 @@ The files in this repository are my configuration files for XMonad.
 * XMonad Contrib (>= 0.9.1)
 * rxvt-unicode
 * slock
+* dmenu
 
 ## Installation
 Link to `~/.xmonad` and provide another link to xmobarrc.
